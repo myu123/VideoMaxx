@@ -1,0 +1,111 @@
+<div class="status-page">
+  <!-- Header — always visible -->
+  <div class="status-header">
+    <div>
+      <h1>Processing Video</h1>
+      <p class="filename">{{ status?.filename || 'Starting...' }}</p>
+    </div>
+    <div class="timer">{{ formatElapsed(elapsed) }}</div>
+  </div>
+
+  <!-- Connection error banner -->
+  @if (connectionError) {
+    <div class="card error-card">
+      <h3>Connection Issue</h3>
+      <p>{{ connectionError }}</p>
+      <p class="error-hint">Make sure <code>start_backend.bat</code> is running in another terminal.</p>
+    </div>
+  }
+
+  <!-- Video info card -->
+  @if (status?.video_info; as vi) {
+    <div class="card info-card">
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Resolution</span>
+          <span class="info-value">{{ vi.width }}x{{ vi.height }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Duration</span>
+          <span class="info-value">{{ formatDuration(vi.duration) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Size</span>
+          <span class="info-value">{{ formatFileSize(vi.size_mb) }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">FPS</span>
+          <span class="info-value">{{ vi.fps }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Codec</span>
+          <span class="info-value">{{ vi.codec }}</span>
+        </div>
+        @if (status!.candidates_count) {
+          <div class="info-item">
+            <span class="info-label">Candidates</span>
+            <span class="info-value highlight">{{ status!.candidates_count }}</span>
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  <!-- Processing error -->
+  @if (status?.stage === 'error') {
+    <div class="card error-card">
+      <h3>Processing Failed</h3>
+      <p>{{ status!.error }}</p>
+    </div>
+  }
+
+  <!-- Progress bar — always visible -->
+  <div class="progress-section">
+    <div class="progress-bar large">
+      <div class="fill" [class.complete]="status?.stage === 'complete'" [style.width.%]="status?.progress ?? 0"></div>
+    </div>
+    <div class="progress-meta">
+      <span class="progress-pct">{{ status?.progress ?? 0 }}%</span>
+      <span class="progress-desc">{{ stageDescription() }}</span>
+    </div>
+  </div>
+
+  <!-- Pipeline stages — always visible -->
+  <div class="stages">
+    @for (stage of stages; track stage.key; let i = $index) {
+      <div class="stage" [class.done]="isStageComplete(i)" [class.active]="isStageActive(i)">
+        <div class="stage-icon">
+          @if (isStageComplete(i)) {
+            <span class="check">&#10003;</span>
+          } @else if (isStageActive(i)) {
+            <div class="spinner-small"></div>
+          } @else {
+            <span class="step-num">{{ stage.icon }}</span>
+          }
+        </div>
+        <span class="stage-label">{{ stage.label }}</span>
+      </div>
+    }
+  </div>
+
+  <!-- Debug info — visible on page so we can verify polling works -->
+  <div style="background:#1a1a2e;color:#0f0;padding:8px 12px;border-radius:4px;font-family:monospace;font-size:12px;margin-bottom:12px;">
+    {{ pollDebug }}
+  </div>
+
+  <!-- Live log -->
+  @if (status) {
+    @if (status.logs && status.logs.length > 0) {
+      <div class="card log-card">
+        <h3>Live Log</h3>
+        <div class="log-entries">
+          @for (entry of status.logs; track entry.time) {
+            <div class="log-entry" [class.error-log]="entry.message.startsWith('ERROR')">
+              <span class="log-message">{{ entry.message }}</span>
+            </div>
+          }
+        </div>
+      </div>
+    }
+  }
+</div>

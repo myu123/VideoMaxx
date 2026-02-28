@@ -1,0 +1,235 @@
+.status-page {
+  max-width: 700px;
+}
+
+.loading-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 0;
+  color: #6b7280;
+}
+
+// ── Header ───────────────────────────────────────────────
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.25rem;
+
+  h1 { margin-bottom: 0.15rem; }
+
+  .filename {
+    color: #9ca3af;
+    font-size: 0.9rem;
+  }
+
+  .timer {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #6ee7b7;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+}
+
+// ── Video info ───────────────────────────────────────────
+.info-card {
+  margin-bottom: 1.5rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+
+  .info-label {
+    font-size: 0.7rem;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .info-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #d1d5db;
+
+    &.highlight { color: #6ee7b7; }
+  }
+}
+
+// ── Progress ─────────────────────────────────────────────
+.progress-section {
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar.large {
+  height: 10px;
+  margin-bottom: 0.5rem;
+
+  .fill.complete {
+    background: #22c55e;
+  }
+}
+
+.progress-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-pct {
+  color: #6ee7b7;
+  font-weight: 700;
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.progress-desc {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}
+
+// ── Stages ───────────────────────────────────────────────
+.stages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.stage {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  color: #4b5563;
+  transition: all 0.2s;
+
+  .stage-icon {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #1f2937;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .step-num { color: #4b5563; }
+
+  .check {
+    color: #6ee7b7;
+    font-size: 0.85rem;
+  }
+
+  &.done {
+    color: #6ee7b7;
+    .stage-icon { background: rgba(110, 231, 183, 0.15); }
+  }
+
+  &.active {
+    color: #e5e7eb;
+    background: rgba(59, 130, 246, 0.08);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+
+    .stage-icon { background: rgba(59, 130, 246, 0.2); }
+    .stage-label { font-weight: 500; }
+  }
+}
+
+// ── Log ──────────────────────────────────────────────────
+.log-card {
+  h3 {
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: #9ca3af;
+  }
+}
+
+.log-entries {
+  max-height: 250px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #374151;
+    border-radius: 2px;
+  }
+}
+
+.log-entry {
+  font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.78rem;
+  color: #9ca3af;
+  padding: 0.25rem 0.5rem;
+  border-left: 2px solid #2a2a3e;
+  line-height: 1.5;
+
+  &.error-log {
+    color: #fca5a5;
+    border-left-color: #ef4444;
+  }
+}
+
+// ── Spinner ──────────────────────────────────────────────
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #1f2937;
+  border-top-color: #6ee7b7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Error ────────────────────────────────────────────────
+.error-card {
+  border-color: #7f1d1d;
+  margin-bottom: 1.5rem;
+  h3 { color: #fca5a5; }
+  p { color: #fecaca; font-size: 0.9rem; }
+  .error-hint {
+    margin-top: 0.5rem;
+    color: #9ca3af;
+    font-size: 0.8rem;
+    code {
+      background: #374151;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      font-size: 0.8rem;
+    }
+  }
+}
