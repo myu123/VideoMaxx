@@ -1,0 +1,44 @@
+<div class="label-page">
+  <h1>Label Highlights</h1>
+  <p class="subtitle">Press <kbd>1</kbd> = Highlight, <kbd>0</kbd> = Not Highlight, <kbd>S</kbd> = Skip</p>
+
+  <div class="progress-bar">
+    <div class="fill" [style.width.%]="progress"></div>
+  </div>
+  <span class="progress-text">{{ currentIndex + 1 }} / {{ candidates.length }} &middot; {{ labeledCount }} labeled</span>
+
+  @if (current) {
+    <div class="card candidate-card">
+      <div class="candidate-header">
+        <span class="time-range">{{ formatTime(current.start) }} &ndash; {{ formatTime(current.end) }}</span>
+        @if (current.score !== undefined) {
+          <span class="score-badge" [class.high]="current.score >= 66" [class.medium]="current.score >= 33 && current.score < 66" [class.low]="current.score < 33">
+            {{ current.score | number:'1.0-0' }}
+          </span>
+        }
+      </div>
+      <p class="transcript-text">{{ current.text }}</p>
+
+      <div class="label-actions">
+        <button class="btn btn-success" (click)="label(1)" [disabled]="saving">
+          Highlight (1)
+        </button>
+        <button class="btn btn-danger" (click)="label(0)" [disabled]="saving">
+          Not Highlight (0)
+        </button>
+        <button class="btn btn-secondary" (click)="skip()">
+          Skip (S)
+        </button>
+      </div>
+    </div>
+
+    <div class="nav-buttons">
+      <button class="btn btn-secondary" (click)="prev()" [disabled]="currentIndex === 0">Previous</button>
+      <button class="btn btn-secondary" (click)="next()" [disabled]="currentIndex >= candidates.length - 1">Next</button>
+    </div>
+  } @else {
+    <div class="card">
+      <p>No candidates available. Process a video first.</p>
+    </div>
+  }
+</div>

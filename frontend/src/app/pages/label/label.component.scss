@@ -1,0 +1,63 @@
+.label-page {
+  max-width: 700px;
+}
+
+h1 { margin-bottom: 0.25rem; }
+
+.subtitle {
+  color: #9ca3af;
+  margin-bottom: 1rem;
+
+  kbd {
+    background: #374151;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    border: 1px solid #4b5563;
+  }
+}
+
+.progress-bar { margin-bottom: 0.5rem; }
+
+.progress-text {
+  display: block;
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.candidate-card {
+  margin-bottom: 1rem;
+
+  .candidate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .time-range {
+    color: #93c5fd;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .transcript-text {
+    color: #d1d5db;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .label-actions {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+}

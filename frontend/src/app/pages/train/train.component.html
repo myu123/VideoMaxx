@@ -1,0 +1,87 @@
+<div class="train-page">
+  <h1>Train Model</h1>
+  <p class="subtitle">Train a highlight detection model from your labeled data.</p>
+
+  <!-- Label Stats -->
+  <div class="card stats-card">
+    <h3>Labeling Progress</h3>
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-value">{{ labelStats.total }}</span>
+        <span class="stat-label">Total Labels</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value highlight">{{ labelStats.highlights }}</span>
+        <span class="stat-label">Highlights</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">{{ labelStats.non_highlights }}</span>
+        <span class="stat-label">Not Highlights</span>
+      </div>
+    </div>
+    @if (labelStats.total < 5) {
+      <p class="hint">Label at least 5 segments to start training.</p>
+    }
+  </div>
+
+  <!-- Train Button -->
+  <button
+    class="btn btn-primary train-btn"
+    (click)="train()"
+    [disabled]="training || labelStats.total < 5"
+  >
+    @if (training) {
+      Training...
+    } @else {
+      Train Model
+    }
+  </button>
+
+  @if (error) {
+    <p class="error-text">{{ error }}</p>
+  }
+
+  <!-- Model Metrics -->
+  @if (modelStatus.trained && modelStatus.metrics) {
+    <div class="card metrics-card">
+      <h3>Model Performance</h3>
+      <div class="stats-row">
+        <div class="stat">
+          <span class="stat-value highlight">{{ (modelStatus.metrics.roc_auc * 100) | number:'1.1-1' }}%</span>
+          <span class="stat-label">ROC AUC</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ (modelStatus.metrics.precision_at_5 * 100) | number:'1.1-1' }}%</span>
+          <span class="stat-label">Precision@5</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ modelStatus.metrics.train_samples }}</span>
+          <span class="stat-label">Train Samples</span>
+        </div>
+        <div class="stat">
+          <span class="stat-value">{{ modelStatus.metrics.val_samples }}</span>
+          <span class="stat-label">Val Samples</span>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Re-score Jobs -->
+  @if (modelStatus.trained && jobs.length) {
+    <h2>Re-score Jobs</h2>
+    <p class="subtitle">Apply the trained model to previously processed videos.</p>
+    <div class="jobs-list">
+      @for (job of jobs; track job.job_id) {
+        <div class="card job-row">
+          <span>{{ job.filename }}</span>
+          <div class="job-row-actions">
+            <button class="btn btn-secondary" (click)="rescore(job.job_id)" [disabled]="rescoring">
+              Re-score
+            </button>
+            <a class="btn btn-primary" [routerLink]="['/jobs', job.job_id, 'results']">View</a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
