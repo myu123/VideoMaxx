@@ -1,0 +1,43 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+
+# Node / Angular
+node_modules/
+frontend/dist/
+frontend/.angular/
+frontend/.vscode/
+
+# Data & outputs (user-generated, not source)
+data/
+outputs/
+ml_artifacts/
+labels.csv
+
+# Media files
+*.mp4
+*.mkv
+*.avi
+*.mov
+*.npy
+
+# IDE
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+*.log
+
+# Lock files (keep package-lock.json in frontend)
+/package-lock.json

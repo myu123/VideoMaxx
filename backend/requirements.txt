@@ -1,0 +1,25 @@
+# -- PyTorch is installed separately with CUDA 13.0 support --
+# setup.bat handles this automatically. Do NOT add torch here.
+
+fastapi==0.111.0
+uvicorn==0.30.1
+jinja2==3.1.4
+python-multipart==0.0.9
+
+numpy==1.26.4
+pandas==2.2.2
+scikit-learn==1.5.0
+joblib==1.4.2
+
+sentence-transformers==2.7.0
+
+faster-whisper==1.0.3
+
+librosa==0.10.2
+soundfile==0.12.1
+
+opencv-python==4.10.0.84
+
+matplotlib==3.9.0
+
+lightgbm==4.3.0
