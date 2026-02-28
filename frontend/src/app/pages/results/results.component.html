@@ -1,0 +1,56 @@
+<div class="results-page">
+  @if (loading) {
+    <p>Loading results...</p>
+  } @else if (error) {
+    <div class="card"><p>{{ error }}</p></div>
+  } @else if (results) {
+    <div class="results-header">
+      <div>
+        <h1>Analysis Results</h1>
+        <p class="meta">{{ results.total_candidates }} candidates analyzed &middot; {{ formatTime(results.video_duration) }} total</p>
+      </div>
+      <div class="header-actions">
+        <a class="btn btn-secondary" [routerLink]="['/jobs', jobId, 'label']">Label Segments</a>
+      </div>
+    </div>
+
+    <!-- Timeline Chart -->
+    <div class="card timeline-card">
+      <h2>Engagement Timeline</h2>
+      <canvas #timelineCanvas class="timeline-canvas"></canvas>
+    </div>
+
+    <!-- Clip Cards -->
+    <h2>Top Highlight Clips</h2>
+    <div class="clips-grid">
+      @for (clip of results.clips; track clip.candidate_id; let i = $index) {
+        <div class="card clip-card">
+          <div class="clip-header">
+            <span class="clip-rank">#{{ i + 1 }}</span>
+            <span class="score-badge" [class]="scoreClass(clip.score)">{{ clip.score | number:'1.0-0' }}</span>
+          </div>
+
+          <video controls preload="metadata" class="clip-player">
+            <source [src]="clipUrl(clip.clip_url)" type="video/mp4">
+          </video>
+
+          <div class="clip-info">
+            <span class="time-range">{{ formatTime(clip.start) }} &ndash; {{ formatTime(clip.end) }}</span>
+
+            <div class="reasons">
+              @for (reason of clip.reasons; track reason) {
+                <span class="reason-tag">{{ reason }}</span>
+              }
+            </div>
+
+            <p class="clip-transcript">{{ clip.text }}</p>
+
+            <a class="btn btn-secondary download-btn" [href]="clipUrl(clip.clip_url)" download>
+              Download Clip
+            </a>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
