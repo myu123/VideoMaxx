@@ -1,0 +1,12 @@
+<div class="app-shell">
+  <nav class="top-bar">
+    <a routerLink="/" class="logo">VideoMaxx</a>
+    <div class="nav-links">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Upload</a>
+      <a routerLink="/train" routerLinkActive="active">Train Model</a>
+    </div>
+  </nav>
+  <main class="content">
+    <router-outlet />
+  </main>
+</div>

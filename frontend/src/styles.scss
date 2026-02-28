@@ -1,0 +1,112 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: #0a0a0a;
+  color: #e5e7eb;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  color: #f9fafb;
+  line-height: 1.3;
+}
+
+// ── Shared utilities ──────────────────────────────────────────────
+
+.card {
+  background: #1a1a2e;
+  border: 1px solid #2a2a3e;
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.btn-primary {
+  background: #6ee7b7;
+  color: #111;
+
+  &:hover:not(:disabled) {
+    background: #5dd4a8;
+  }
+}
+
+.btn-secondary {
+  background: #374151;
+  color: #e5e7eb;
+
+  &:hover:not(:disabled) {
+    background: #4b5563;
+  }
+}
+
+.btn-danger {
+  background: #ef4444;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: #dc2626;
+  }
+}
+
+.btn-success {
+  background: #22c55e;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: #16a34a;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.progress-bar {
+  height: 6px;
+  background: #1f2937;
+  border-radius: 3px;
+  overflow: hidden;
+
+  .fill {
+    height: 100%;
+    background: #6ee7b7;
+    border-radius: 3px;
+    transition: width 0.4s ease;
+  }
+}
+
+.score-badge {
+  font-weight: 700;
+  font-size: 1.25rem;
+
+  &.high { color: #22c55e; }
+  &.medium { color: #eab308; }
+  &.low { color: #ef4444; }
+}
