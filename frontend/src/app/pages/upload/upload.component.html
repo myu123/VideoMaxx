@@ -1,0 +1,58 @@
+<h1>Upload Video</h1>
+<p class="subtitle">Drop a video to analyze and extract the best highlights.</p>
+
+<div
+  class="drop-zone"
+  [class.drag-over]="dragOver"
+  (dragover)="onDragOver($event)"
+  (dragleave)="onDragLeave()"
+  (drop)="onDrop($event)"
+  (click)="fileInput.click()"
+>
+  @if (selectedFile) {
+    <div class="selected-file">
+      <span class="file-icon">&#9654;</span>
+      <span>{{ selectedFile.name }}</span>
+      <span class="file-size">({{ (selectedFile.size / 1048576).toFixed(1) }} MB)</span>
+    </div>
+  } @else {
+    <span class="drop-label">Drop video here or click to browse</span>
+    <span class="drop-hint">MP4, MKV, AVI, MOV</span>
+  }
+</div>
+<input #fileInput type="file" accept="video/*" hidden (change)="onFileSelect($event)" />
+
+<button class="btn btn-primary upload-btn" (click)="upload()" [disabled]="!selectedFile || uploading">
+  @if (uploading) {
+    Processing...
+  } @else {
+    Upload & Process
+  }
+</button>
+
+@if (jobs.length) {
+  <h2>Previous Jobs</h2>
+  <div class="jobs-list">
+    @for (job of jobs; track job.job_id) {
+      <div class="card job-card">
+        <div class="job-header">
+          <strong>{{ job.filename }}</strong>
+          <span class="badge" [class]="'stage-' + job.stage">{{ stageLabel(job.stage) }}</span>
+        </div>
+        <div class="progress-bar">
+          <div class="fill" [style.width.%]="job.progress"></div>
+        </div>
+        <div class="job-actions">
+          @if (job.stage === 'complete') {
+            <a class="btn btn-primary" [routerLink]="['/jobs', job.job_id, 'results']">View Results</a>
+            <a class="btn btn-secondary" [routerLink]="['/jobs', job.job_id, 'label']">Label</a>
+          } @else if (job.stage !== 'error') {
+            <a class="btn btn-secondary" [routerLink]="['/jobs', job.job_id, 'status']">View Status</a>
+          } @else {
+            <span class="error-text">{{ job.error }}</span>
+          }
+        </div>
+      </div>
+    }
+  </div>
+}

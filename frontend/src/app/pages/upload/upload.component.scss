@@ -1,0 +1,104 @@
+h1 {
+  margin-bottom: 0.25rem;
+}
+
+.subtitle {
+  color: #9ca3af;
+  margin-bottom: 1.5rem;
+}
+
+.drop-zone {
+  border: 2px dashed #374151;
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+  margin-bottom: 1rem;
+
+  &:hover, &.drag-over {
+    border-color: #6ee7b7;
+    background: rgba(110, 231, 183, 0.05);
+  }
+
+  .drop-label {
+    display: block;
+    font-size: 1rem;
+    color: #d1d5db;
+  }
+
+  .drop-hint {
+    display: block;
+    font-size: 0.8rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+
+  .selected-file {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+
+    .file-icon {
+      color: #6ee7b7;
+    }
+    .file-size {
+      color: #6b7280;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.upload-btn {
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-bottom: 1rem;
+}
+
+.jobs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.job-card {
+  .job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+  }
+
+  .progress-bar {
+    margin-bottom: 0.75rem;
+  }
+
+  .job-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .error-text {
+    color: #ef4444;
+    font-size: 0.85rem;
+  }
+}
+
+.badge {
+  &.stage-complete { background: #166534; color: #bbf7d0; }
+  &.stage-error { background: #7f1d1d; color: #fecaca; }
+  &.stage-queued { background: #374151; color: #d1d5db; }
+  &.stage-transcribing,
+  &.stage-generating_candidates,
+  &.stage-extracting_features,
+  &.stage-scoring,
+  &.stage-rendering_clips {
+    background: #1e3a5f;
+    color: #93c5fd;
+  }
+}
