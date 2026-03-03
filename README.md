@@ -2,6 +2,11 @@
 
 A local, GPU-accelerated video analysis pipeline that automatically identifies and extracts the most engaging highlights from long-form video content using explainable machine learning.
 
+![Processing status page](images/processing.png)
+![Analysis results](images/analysis_results.png)
+![Clip ranking](images/clip_ranking.png)
+![Label highlits](images/label_highlights.png)
+
 ## Architecture
 
 ```
